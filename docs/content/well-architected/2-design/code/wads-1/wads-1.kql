@@ -1,5 +1,5 @@
 // Azure Resource Graph Query
-// Check that resources are deployed across multiple zones.
+// WADS-1 - Consider deploying your application across multiple zones
 resources
 // selector
 | where isnotnull(zones[0])
