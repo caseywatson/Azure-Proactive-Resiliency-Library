@@ -1,0 +1,41 @@
+// Azure Resource Graph Query
+// WADS-10 - Resources should be deployed only to regions that support availability zones
+resources
+// selector
+| project location
+| distinct location
+| where not(location in ( // Regions with zones per https://azure.microsoft.com/explore/global-infrastructure/geographies
+    "brazilsouth",
+    "canadacentral",
+    "centralus",
+    "eastus",
+    "eastus2",
+    "southcentralus",
+    "westus2",
+    "westus3",
+    "southafricanorth",
+    "eastasia",
+    "southeastasia",
+    "australiaeast",
+    "northeurope",
+    "westeurope",
+    "francecentral",
+    "germanywestcentral",
+    "centralindia",
+    "israelcentral",
+    "italynorth",
+    "japaneast",
+    "koreacentral",
+    "norwayeast",
+    "polandcentral",
+    "qatarcentral",
+    "swedencentral",
+    "switzerlandnorth",
+    "uaenorth",
+    "uksouth"
+))
+| summarize regionCount = count()
+| project recommendationId = 'wads-10',
+          param1 = iff(regionCount == 0, 
+                       'PASS: All selected regions support availability zones.',
+                       strcat('FAIL: ', regionCount, ' region(s) do not support availability zones.'))
