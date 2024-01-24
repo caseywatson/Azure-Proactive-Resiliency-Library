@@ -1,0 +1,12 @@
+// Azure Resource Graph Query
+// Check that resources are deployed across multiple zones.
+resources
+// selector
+| where isnotnull(zones[0])
+| project zone = tostring(zones[0])
+| distinct zone
+| summarize zoneCount = count()
+| project recommendationId = 'wads-1', 
+          param1 = iff(zoneCount > 1, 
+                       strcat('PASS: Resources deployed across ', zoneCount, ' zones.'), 
+                       strcat('FAIL: Resources deployed across ', zoneCount, ' zone(s).'))
