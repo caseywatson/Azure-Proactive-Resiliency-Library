@@ -1,0 +1,11 @@
+// Azure Resource Graph Query
+// WADS-2 - Consider deploying your application across multiple regions
+resources
+// selector
+| project location
+| distinct location
+| summarize locationCount = count()
+| project recommendationId = 'wads-2', 
+          param1 = iff(locationCount > 1, 
+                       strcat('PASS: Resources deployed across ', locationCount, ' regions.'), 
+                       strcat('FAIL: Resources deployed to only one region.'))
