@@ -2,6 +2,6 @@
 // Find all VMs that are not assigned to a Zone
 Resources
 | where type =~ 'Microsoft.Compute/virtualMachines'
-// selector
+| // selector
 | where isnull(zones)
 | project recommendationId="vm-2", name, id, tags, param1="No Zone"
