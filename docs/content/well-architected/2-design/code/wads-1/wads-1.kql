@@ -1,7 +1,7 @@
 // Azure Resource Graph Query
 // WADS-1 - Consider deploying your application across multiple zones
 resources
-// selector
+| // selector
 | where isnotnull(zones[0])
 | project zone = tostring(zones[0])
 | distinct zone
