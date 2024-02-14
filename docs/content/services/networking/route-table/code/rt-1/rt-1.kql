@@ -2,6 +2,7 @@
 // Find all Route Tables without alerts for modification configured.
 resources
 | where type =~ "Microsoft.Network/routeTables"
+// selector
 | project name, id, tags, lowerCaseRouteTableId = tolower(id)
 | join kind = leftouter (
     resources
