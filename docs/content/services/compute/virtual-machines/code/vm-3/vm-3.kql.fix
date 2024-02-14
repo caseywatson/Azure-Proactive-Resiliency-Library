@@ -3,6 +3,7 @@
 // Customize the query to meet your naming standards, replace the "5" with the number of characters you want to compare (name, 0, 5)
 Resources
 | where type =~ 'Microsoft.Compute/virtualMachines'
+// selector
 | where isnotnull(properties.availabilitySet)
 | extend vmPrefix = substring(name, 0, 5)
 | summarize VMs = make_set(vmPrefix) by availabilitySet = tostring(properties.availabilitySet.id)
