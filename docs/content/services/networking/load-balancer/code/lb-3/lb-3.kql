@@ -2,6 +2,7 @@
 // Find all LoadBalancers with Outbound rules configured
 resources
 | where type =~ 'Microsoft.Network/loadBalancers'
+// selector
 | extend outboundRules = array_length(properties.outboundRules)
 | where outboundRules > 0
 | project recommendationId = "lb-3", name, id, Param1 = "outboundRules: >=1"
