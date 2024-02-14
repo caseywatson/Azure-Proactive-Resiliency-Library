@@ -2,5 +2,6 @@
 // Lists VMs with PIPs
 resources
 | where type =~ 'Microsoft.Network/publicIPAddresses'
+// selector
 | where tostring(properties.ipConfiguration.id) contains "microsoft.network/networkinterfaces"
 | project recommendationid="pip-2", name, id, param1=strcat("Migrate from instance IP to NAT Gateway")
