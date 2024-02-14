@@ -1,3 +1,4 @@
 resources
 | where type == "microsoft.Network/trafficmanagerprofiles" or type == "microsoft.cdn/profiles"
+// selector
 | project recommendationId = "afd-1", name, id
