@@ -4,6 +4,7 @@ Resources
 | extend resourceId = tolower(id)
 | project name, location, type, id, tags, resourceId, properties
 | where type =~ 'Microsoft.Compute/virtualMachines'
+// selector
 | join kind=leftouter (
 maintenanceresources
 | where type =~ "microsoft.maintenance/configurationassignments"
