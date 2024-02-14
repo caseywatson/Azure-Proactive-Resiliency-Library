@@ -2,6 +2,7 @@
 // Find all VM NICs that have IPForwarding enabled. This feature is usually only required for Network Virtual Appliances
 Resources
 | where type =~ 'Microsoft.Compute/virtualMachines'
+// selector
 | where isnotnull(properties.networkProfile.networkInterfaces)
 | mv-expand nic=properties.networkProfile.networkInterfaces
 | project name, id, tags, nicId = nic.id
