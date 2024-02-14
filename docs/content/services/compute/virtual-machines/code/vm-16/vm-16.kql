@@ -7,10 +7,12 @@ resources
 | join kind = leftouter (
     resources
     | where type =~ 'Microsoft.Compute/virtualMachines'
+    // selector
     | project osDiskVmName = name, lowerCaseOsDiskId = tolower(properties.storageProfile.osDisk.managedDisk.id)
     | join kind = fullouter (
         resources
         | where type =~ 'Microsoft.Compute/virtualMachines'
+        // selector
         | mv-expand dataDisks = properties.storageProfile.dataDisks
         | project dataDiskVmName = name, lowerCaseDataDiskId = tolower(dataDisks.managedDisk.id)
         )
