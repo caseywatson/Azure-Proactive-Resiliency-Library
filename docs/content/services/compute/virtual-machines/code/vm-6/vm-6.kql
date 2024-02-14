@@ -2,5 +2,6 @@
 // Find all VMs that only have a single Disk
 Resources
 | where type =~ 'Microsoft.Compute/virtualMachines'
+// selector
 | where array_length(properties.storageProfile.dataDisks) < 1
 | project recommendationId = "vm-6", name, id, tags
