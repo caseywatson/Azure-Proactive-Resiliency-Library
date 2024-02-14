@@ -2,6 +2,7 @@
 // Find Subnets with Service Endpoint enabled for services that offer Private Link
 resources
 | where type =~ 'Microsoft.Network/virtualnetworks'
+// selector
 | mv-expand subnets = properties.subnets
 | extend se = array_length(subnets.properties.serviceEndpoints)
 | where se >= 1
