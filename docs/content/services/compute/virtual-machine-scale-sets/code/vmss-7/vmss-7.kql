@@ -2,6 +2,7 @@
 // Find VMSS instances where Spreading algorithm is set to Static
 resources
 | where type == "microsoft.compute/virtualmachinescalesets"
+// selector
 | where properties.platformFaultDomainCount > 1
 | project recommendationId = "vmss-7", name, id, tags, param1 = "platformFaultDomainCount: Static"
 | order by id asc
