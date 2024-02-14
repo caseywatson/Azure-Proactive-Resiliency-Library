@@ -17,6 +17,7 @@ PolicyResources
 | join kind = leftouter (
     Resources
     | where type =~ "Microsoft.Compute/virtualMachines"
+    // selector
     | project vmName = name, vmId = id, vmTags = tags, lowerCaseVmId = tolower(id)
     )
     on $left.lowerCaseVmIdOfPolicyState == $right.lowerCaseVmId
