@@ -2,6 +2,7 @@
 // Find all LoadBalancers with with regional or zonal public IP Addresses
 resources
 | where type == "microsoft.network/loadbalancers"
+// selector
 | where tolower(sku.name) != 'basic'
 | mv-expand feIPconfigs = properties.frontendIPConfigurations
 | extend
@@ -15,6 +16,7 @@ resources
 | project name, feConfigName, id
 | union (resources
     | where type == "microsoft.network/loadbalancers"
+    // selector
     | where tolower(sku.name) != 'basic'
     | mv-expand feIPconfigs = properties.frontendIPConfigurations
     | extend
