@@ -2,6 +2,7 @@
 // Find all Virtual Machines without diagnostic settings enabled/with diagnostic settings enabled but not configured both performance counters and event logs/syslogs.
 resources
 | where type =~ "microsoft.compute/virtualmachines"
+// selector
 | project name, id, tags, lowerCaseVmId = tolower(id)
 | join kind = leftouter (
     resources
