@@ -2,5 +2,6 @@
 // Find all VMs that are NOT running
 Resources
 | where type =~ 'Microsoft.Compute/virtualMachines'
+// selector
 | where properties.extended.instanceView.powerState.displayStatus != 'VM running'
 | project recommendationId = "vm-9", name, id, tags
