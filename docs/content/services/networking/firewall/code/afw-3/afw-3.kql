@@ -2,6 +2,7 @@
 // List all in-scope Azure Firewall resources, where the VNet is not associated to a DDoS Protection Plan
 resources
 | where type == "microsoft.network/azurefirewalls"
+// selector
 | mv-expand properties.ipConfigurations
 | project name, firewallId = id, vNet = substring(properties_ipConfigurations.properties.subnet.id, 0, indexof(properties_ipConfigurations.properties.subnet, "/subnet") - 7)
 | join kind=fullouter (
