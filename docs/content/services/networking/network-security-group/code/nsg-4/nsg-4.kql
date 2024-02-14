@@ -2,6 +2,7 @@
 // Find all Network Security Groups without NSG Flow logs configured or disabled.
 resources
 | where type =~ "Microsoft.Network/networkSecurityGroups"
+// selector
 | project name, id, tags, lowerCaseNsgId = tolower(id)
 | join kind = leftouter (
     resources
