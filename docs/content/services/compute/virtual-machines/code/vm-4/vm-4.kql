@@ -3,6 +3,7 @@
 // Run query to see results.
 resources
 | where type =~ 'Microsoft.Compute/virtualMachines'
+// selector
 | project name, id, tags
 | join kind=leftouter (
     recoveryservicesresources
