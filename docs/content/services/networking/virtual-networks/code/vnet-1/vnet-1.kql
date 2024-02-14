@@ -2,6 +2,7 @@
 // Find Subnets without NSG associated
 resources
 | where type =~ 'Microsoft.Network/virtualnetworks'
+// selector
 | mv-expand subnets = properties.subnets
 | extend sn = string_size(subnets.properties.networkSecurityGroup)
 | where sn == 0 and subnets.name !in ("GatewaySubnet", "AzureFirewallSubnet", "AzureFirewallManagementSubnet", "RouteServerSubnet")
